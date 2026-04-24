@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NestFinder — Premium Real Estate</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <span class="logo-icon">◈</span>
+    <span class="logo-text">NestFinder</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('listings')">Properties</a>
+    <a href="#" onclick="showPage('map')">Map View</a>
+    <a href="#" onclick="showPage('compare')">Compare</a>
+    <a href="#" onclick="showPage('calculator')">EMI Calc</a>
+  </div>
+  <div class="nav-actions">
+    <button class="btn-ghost" onclick="openModal('loginModal')">Sign In</button>
+    <button class="btn-primary" onclick="openModal('postModal')">List Property</button>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</nav>
+
+<!-- PAGE: HOME -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-blob blob1"></div>
+      <div class="hero-blob blob2"></div>
+      <div class="hero-blob blob3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">✦ India's Smartest Property Platform</div>
+      <h1 class="hero-title">
+        Find Your <em>Perfect</em><br/>
+        Place to Call <span class="highlight">Home</span>
+      </h1>
+      <p class="hero-subtitle">AI-powered search across 50,000+ verified listings.<br/>Flats, Villas, Plots — all in one place.</p>
+
+      <!-- SEARCH BAR -->
+      <div class="search-container">
+        <div class="search-tabs">
+          <button class="stab active" onclick="switchSearchTab(this,'buy')">Buy</button>
+          <button class="stab" onclick="switchSearchTab(this,'rent')">Rent</button>
+          <button class="stab" onclick="switchSearchTab(this,'commercial')">Commercial</button>
+        </div>
+        <div class="search-bar">
+          <div class="sfield">
+            <label>Location</label>
+            <input type="text" id="searchLocation" placeholder="City, Area, Pincode..." />
+          </div>
+          <div class="sdivider"></div>
+          <div class="sfield">
+            <label>Type</label>
+            <select id="searchType">
+              <option value="">All Types</option>
+              <option>Apartment</option>
+              <option>Villa</option>
+              <option>Independent House</option>
+              <option>Plot</option>
+              <option>Studio</option>
+              <option>Penthouse</option>
+            </select>
+          </div>
+          <div class="sdivider"></div>
+          <div class="sfield">
+            <label>Budget</label>
+            <select id="searchBudget">
+              <option value="">Any Budget</option>
+              <option value="0-5000000">Under ₹50L</option>
+              <option value="5000000-10000000">₹50L – ₹1Cr</option>
+              <option value="10000000-20000000">₹1Cr – ₹2Cr</option>
+              <option value="20000000-50000000">₹2Cr – ₹5Cr</option>
+              <option value="50000000+">Above ₹5Cr</option>
+            </select>
+          </div>
+          <div class="sdivider"></div>
+          <div class="sfield">
+            <label>BHK</label>
+            <select id="searchBHK">
+              <option value="">Any</option>
+              <option>1 BHK</option>
+              <option>2 BHK</option>
+              <option>3 BHK</option>
+              <option>4+ BHK</option>
+            </select>
+          </div>
+          <button class="search-btn" onclick="performSearch()">
+            <span>Search</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </div>
+        <div class="search-tags">
+          <span>Popular:</span>
+          <button onclick="quickSearch('Pune')">Pune</button>
+          <button onclick="quickSearch('Mumbai')">Mumbai</button>
+          <button onclick="quickSearch('Bangalore')">Bangalore</button>
+          <button onclick="quickSearch('Hyderabad')">Hyderabad</button>
+          <button onclick="quickSearch('Delhi NCR')">Delhi NCR</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hnum" data-target="50000">0</span><span class="hunit">+</span><span class="hlabel">Active Listings</span></div>
+      <div class="hstat"><span class="hnum" data-target="12000">0</span><span class="hunit">+</span><span class="hlabel">Happy Families</span></div>
+      <div class="hstat"><span class="hnum" data-target="150">0</span><span class="hunit">+</span><span class="hlabel">Cities Covered</span></div>
+      <div class="hstat"><span class="hnum" data-target="98">0</span><span class="hunit">%</span><span class="hlabel">Verified Listings</span></div>
+    </div>
+  </section>
+
+  <!-- FEATURES STRIP -->
+  <section class="features-strip">
+    <div class="fstrip-item"><span class="ficon">🤖</span><span>AI Price Prediction</span></div>
+    <div class="fstrip-item"><span class="ficon">📍</span><span>Hyperlocal Insights</span></div>
+    <div class="fstrip-item"><span class="ficon">🔐</span><span>100% Verified Sellers</span></div>
+    <div class="fstrip-item"><span class="ficon">🏦</span><span>Instant Loan Pre-Approval</span></div>
+    <div class="fstrip-item"><span class="ficon">🥽</span><span>Virtual 3D Tours</span></div>
+    <div class="fstrip-item"><span class="ficon">📊</span><span>Market Analytics</span></div>
+  </section>
+
+  <!-- FEATURED PROPERTIES -->
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Handpicked for you</div>
+        <h2 class="section-title">Featured Properties</h2>
+      </div>
+      <button class="btn-outline" onclick="showPage('listings')">View All →</button>
+    </div>
+    <div class="properties-grid featured-grid" id="featuredGrid"></div>
+  </section>
+
+  <!-- CITY EXPLORER -->
+  <section class="section city-section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Explore by City</div>
+        <h2 class="section-title">Top Markets</h2>
+      </div>
+    </div>
+    <div class="cities-grid" id="citiesGrid"></div>
+  </section>
+
+  <!-- AI INSIGHTS WIDGET -->
+  <section class="section insights-section">
+    <div class="insights-card">
+      <div class="insights-left">
+        <div class="section-eyebrow">Powered by AI</div>
+        <h2>Price Intelligence<br/><em>Engine</em></h2>
+        <p>Get hyper-accurate price predictions, investment ROI forecasts, and neighbourhood growth scores — all powered by our proprietary AI engine trained on 10 years of market data.</p>
+        <button class="btn-primary" onclick="showPage('calculator')">Try Price Predictor →</button>
+      </div>
+      <div class="insights-right">
+        <div class="insights-chart" id="insightsChart"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECENT LISTINGS -->
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Just Listed</div>
+        <h2 class="section-title">New Arrivals</h2>
+      </div>
+      <div class="filter-pills" id="typeFilter">
+        <button class="pill active" onclick="filterByType(this,'all')">All</button>
+        <button class="pill" onclick="filterByType(this,'Apartment')">Apartments</button>
+        <button class="pill" onclick="filterByType(this,'Villa')">Villas</button>
+        <button class="pill" onclick="filterByType(this,'Independent House')">Houses</button>
+        <button class="pill" onclick="filterByType(this,'Penthouse')">Penthouses</button>
+      </div>
+    </div>
+    <div class="properties-grid" id="recentGrid"></div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section testimonials-section">
+    <div class="section-header center">
+      <div>
+        <div class="section-eyebrow">Happy Homeowners</div>
+        <h2 class="section-title">What Our Clients Say</h2>
+      </div>
+    </div>
+    <div class="testimonials-grid" id="testimonialsGrid"></div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to List Your Property?</h2>
+      <p>Join 10,000+ owners who trust NestFinder to sell faster and smarter.</p>
+      <div class="cta-actions">
+        <button class="btn-white" onclick="openModal('postModal')">Post Free Listing</button>
+        <button class="btn-outline-white">Get a Free Valuation</button>
+      </div>
+    </div>
+    <div class="cta-bg"></div>
+  </section>
+
+</div>
+
+<!-- PAGE: LISTINGS -->
+<div id="page-listings" class="page">
+  <div class="listings-layout">
+    <!-- SIDEBAR FILTERS -->
+    <aside class="filter-sidebar" id="filterSidebar">
+      <div class="filter-header">
+        <h3>Filter Properties</h3>
+        <button onclick="clearFilters()">Clear All</button>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Property Type</label>
+        <div class="checkbox-group" id="typeCheckboxes">
+          <label><input type="checkbox" value="Apartment" onchange="applyFilters()"/> Apartment</label>
+          <label><input type="checkbox" value="Villa" onchange="applyFilters()"/> Villa</label>
+          <label><input type="checkbox" value="Independent House" onchange="applyFilters()"/> Independent House</label>
+          <label><input type="checkbox" value="Penthouse" onchange="applyFilters()"/> Penthouse</label>
+          <label><input type="checkbox" value="Studio" onchange="applyFilters()"/> Studio</label>
+          <label><input type="checkbox" value="Plot" onchange="applyFilters()"/> Plot</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Price Range</label>
+        <div class="range-display">
+          <span id="priceMin">₹0</span> — <span id="priceMax">₹10Cr+</span>
+        </div>
+        <input type="range" id="priceRangeMin" min="0" max="100000000" step="500000" value="0" oninput="updatePriceRange()" />
+        <input type="range" id="priceRangeMax" min="0" max="100000000" step="500000" value="100000000" oninput="updatePriceRange()" />
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">BHK Configuration</label>
+        <div class="bhk-toggle" id="bhkToggle">
+          <button class="btog active" onclick="toggleBHK(this,'all')">Any</button>
+          <button class="btog" onclick="toggleBHK(this,'1')">1</button>
+          <button class="btog" onclick="toggleBHK(this,'2')">2</button>
+          <button class="btog" onclick="toggleBHK(this,'3')">3</button>
+          <button class="btog" onclick="toggleBHK(this,'4+')">4+</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">City</label>
+        <select id="cityFilter" onchange="applyFilters()">
+          <option value="">All Cities</option>
+          <option>Pune</option>
+          <option>Mumbai</option>
+          <option>Bangalore</option>
+          <option>Hyderabad</option>
+          <option>Delhi NCR</option>
+          <option>Chennai</option>
+          <option>Kolkata</option>
+          <option>Ahmedabad</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Amenities</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" value="parking" onchange="applyFilters()"/> Parking</label>
+          <label><input type="checkbox" value="gym" onchange="applyFilters()"/> Gym</label>
+          <label><input type="checkbox" value="pool" onchange="applyFilters()"/> Swimming Pool</label>
+          <label><input type="checkbox" value="security" onchange="applyFilters()"/> 24/7 Security</label>
+          <label><input type="checkbox" value="garden" onchange="applyFilters()"/> Garden</label>
+          <label><input type="checkbox" value="clubhouse" onchange="applyFilters()"/> Clubhouse</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Furnishing</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" value="Fully Furnished" onchange="applyFilters()"/> Fully Furnished</label>
+          <label><input type="checkbox" value="Semi Furnished" onchange="applyFilters()"/> Semi Furnished</label>
+          <label><input type="checkbox" value="Unfurnished" onchange="applyFilters()"/> Unfurnished</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Sort By</label>
+        <select id="sortFilter" onchange="applyFilters()">
+          <option value="newest">Newest First</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="area-asc">Area: Small to Large</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+    </aside>
+
+    <!-- MAIN LISTINGS -->
+    <main class="listings-main">
+      <div class="listings-topbar">
+        <div class="results-info">
+          <span id="resultCount">0</span> properties found
+          <span id="activeFiltersDisplay" class="active-filters"></span>
+        </div>
+        <div class="view-toggle">
+          <button class="vtog active" onclick="setView('grid',this)" title="Grid">⊞</button>
+          <button class="vtog" onclick="setView('list',this)" title="List">☰</button>
+        </div>
+      </div>
+      <div class="properties-grid" id="listingsGrid"></div>
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+</div>
+
+<!-- PAGE: MAP -->
+<div id="page-map" class="page">
+  <div class="map-layout">
+    <div class="map-sidebar">
+      <div class="map-search">
+        <input type="text" id="mapSearchInput" placeholder="Search location..." oninput="filterMapListings(this.value)"/>
+      </div>
+      <div id="mapList" class="map-list"></div>
+    </div>
+    <div class="map-area">
+      <div class="map-canvas" id="mapCanvas">
+        <div class="map-bg"></div>
+        <div id="mapPins" class="map-pins"></div>
+        <div class="map-legend">
+          <div class="ml-item"><span class="ml-dot" style="background:#E84855"></span> For Sale</div>
+          <div class="ml-item"><span class="ml-dot" style="background:#3FA7D6"></span> For Rent</div>
+          <div class="ml-item"><span class="ml-dot" style="background:#F4A261"></span> Premium</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: COMPARE -->
+<div id="page-compare" class="page">
+  <div class="compare-page">
+    <div class="section-header center">
+      <div>
+        <div class="section-eyebrow">Side by Side</div>
+        <h2 class="section-title">Compare Properties</h2>
+      </div>
+    </div>
+    <div class="compare-selector">
+      <p>Select up to 3 properties to compare</p>
+      <div class="compare-search-row">
+        <input type="text" id="compareSearchInput" placeholder="Search properties..." oninput="filterCompareSearch(this.value)"/>
+        <div id="compareSearchResults" class="compare-dropdown"></div>
+      </div>
+    </div>
+    <div class="compare-slots" id="compareSlots"></div>
+    <div class="compare-table-wrap" id="compareTableWrap"></div>
+  </div>
+</div>
+
+<!-- PAGE: CALCULATOR -->
+<div id="page-calculator" class="page">
+  <div class="calculator-page">
+    <div class="section-header center">
+      <div>
+        <div class="section-eyebrow">Financial Planning</div>
+        <h2 class="section-title">EMI & Investment Calculator</h2>
+      </div>
+    </div>
+    <div class="calc-grid">
+
+      <!-- EMI CALC -->
+      <div class="calc-card">
+        <h3>🏦 EMI Calculator</h3>
+        <div class="calc-field">
+          <label>Loan Amount (₹)</label>
+          <input type="number" id="loanAmount" value="5000000" oninput="calcEMI()"/>
+          <input type="range" min="500000" max="100000000" step="100000" value="5000000" oninput="this.previousElementSibling.value=this.value;calcEMI()"/>
+        </div>
+        <div class="calc-field">
+          <label>Interest Rate (%)</label>
+          <input type="number" id="interestRate" value="8.5" step="0.1" oninput="calcEMI()"/>
+          <input type="range" min="6" max="18" step="0.1" value="8.5" oninput="this.previousElementSibling.value=this.value;calcEMI()"/>
+        </div>
+        <div class="calc-field">
+          <label>Loan Tenure (Years)</label>
+          <input type="number" id="loanTenure" value="20" oninput="calcEMI()"/>
+          <input type="range" min="1" max="30" step="1" value="20" oninput="this.previousElementSibling.value=this.value;calcEMI()"/>
+        </div>
+        <div class="emi-result" id="emiResult">
+          <div class="emi-main">
+            <span class="emi-label">Monthly EMI</span>
+            <span class="emi-value" id="emiValue">₹0</span>
+          </div>
+          <div class="emi-breakdown">
+            <div><span>Total Amount</span><span id="totalAmount">₹0</span></div>
+            <div><span>Total Interest</span><span id="totalInterest">₹0</span></div>
+            <div><span>Principal</span><span id="principalAmt">₹0</span></div>
+          </div>
+          <div class="emi-donut" id="emiDonut"></div>
+        </div>
+      </div>
+
+      <!-- ROI CALCULATOR -->
+      <div class="calc-card">
+        <h3>📈 Investment ROI Estimator</h3>
+        <div class="calc-field">
+          <label>Property Price (₹)</label>
+          <input type="number" id="roiPrice" value="8000000" oninput="calcROI()"/>
+          <input type="range" min="1000000" max="100000000" step="500000" value="8000000" oninput="this.previousElementSibling.value=this.value;calcROI()"/>
+        </div>
+        <div class="calc-field">
+          <label>City / Market</label>
+          <select id="roiCity" onchange="calcROI()">
+            <option value="8">Pune (8% p.a.)</option>
+            <option value="9">Mumbai (9% p.a.)</option>
+            <option value="11">Bangalore (11% p.a.)</option>
+            <option value="10">Hyderabad (10% p.a.)</option>
+            <option value="7">Delhi NCR (7% p.a.)</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Investment Horizon (Years)</label>
+          <input type="number" id="roiYears" value="5" oninput="calcROI()"/>
+          <input type="range" min="1" max="20" step="1" value="5" oninput="this.previousElementSibling.value=this.value;calcROI()"/>
+        </div>
+        <div class="calc-field">
+          <label>Monthly Rental Income (₹)</label>
+          <input type="number" id="rentalIncome" value="25000" oninput="calcROI()"/>
+        </div>
+        <div class="roi-result" id="roiResult">
+          <div class="roi-grid">
+            <div class="roi-item"><span>Future Value</span><strong id="futureValue">₹0</strong></div>
+            <div class="roi-item"><span>Total Rental</span><strong id="totalRental">₹0</strong></div>
+            <div class="roi-item"><span>Capital Gain</span><strong id="capitalGain">₹0</strong></div>
+            <div class="roi-item highlight"><span>Total Returns</span><strong id="totalROI">₹0</strong></div>
+          </div>
+          <div class="roi-bar-chart" id="roiBarChart"></div>
+        </div>
+      </div>
+
+      <!-- AI PRICE PREDICTOR -->
+      <div class="calc-card ai-card">
+        <h3>🤖 AI Price Predictor</h3>
+        <p class="ai-desc">Enter property details and our AI will estimate the fair market value.</p>
+        <div class="calc-field">
+          <label>City</label>
+          <select id="aiCity">
+            <option>Pune</option><option>Mumbai</option><option>Bangalore</option>
+            <option>Hyderabad</option><option>Delhi NCR</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Area (sq ft)</label>
+          <input type="number" id="aiArea" value="1200" />
+        </div>
+        <div class="calc-field">
+          <label>BHK</label>
+          <select id="aiBHK">
+            <option>1 BHK</option><option selected>2 BHK</option><option>3 BHK</option><option>4+ BHK</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Floor</label>
+          <input type="number" id="aiFloor" value="5" />
+        </div>
+        <div class="calc-field">
+          <label>Age of Property (Years)</label>
+          <input type="number" id="aiAge" value="2" />
+        </div>
+        <button class="btn-primary full-width" onclick="predictPrice()">Predict Price with AI →</button>
+        <div class="ai-result" id="aiResult"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PROPERTY DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal" onclick="closeModal('detailModal')">
+  <div class="modal-box detail-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<!-- POST LISTING MODAL -->
+<div class="modal-overlay" id="postModal" onclick="closeModal('postModal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('postModal')">✕</button>
+    <h2>Post Your Property</h2>
+    <p class="modal-sub">Free listing — reach thousands of buyers instantly.</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Property Title</label>
+        <input type="text" placeholder="e.g. 3 BHK Apartment in Koregaon Park"/>
+      </div>
+      <div class="form-group">
+        <label>Property Type</label>
+        <select>
+          <option>Apartment</option><option>Villa</option><option>Independent House</option>
+          <option>Plot</option><option>Studio</option><option>Penthouse</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>City</label>
+        <input type="text" placeholder="Pune, Mumbai..." />
+      </div>
+      <div class="form-group">
+        <label>Area / Locality</label>
+        <input type="text" placeholder="Koregaon Park, Baner..." />
+      </div>
+      <div class="form-group">
+        <label>Price (₹)</label>
+        <input type="number" placeholder="e.g. 7500000" />
+      </div>
+      <div class="form-group">
+        <label>Area (sq ft)</label>
+        <input type="number" placeholder="e.g. 1200" />
+      </div>
+      <div class="form-group">
+        <label>BHK</label>
+        <select><option>1 BHK</option><option>2 BHK</option><option>3 BHK</option><option>4+ BHK</option></select>
+      </div>
+      <div class="form-group">
+        <label>Furnishing Status</label>
+        <select><option>Fully Furnished</option><option>Semi Furnished</option><option>Unfurnished</option></select>
+      </div>
+      <div class="form-group full">
+        <label>Description</label>
+        <textarea rows="4" placeholder="Describe your property, highlights, nearby landmarks..."></textarea>
+      </div>
+      <div class="form-group full">
+        <label>Contact Number</label>
+        <input type="tel" placeholder="+91 XXXXX XXXXX" />
+      </div>
+    </div>
+    <button class="btn-primary full-width" onclick="submitListing()">Post Listing Free →</button>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
+  <div class="modal-box login-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    <div class="login-logo">◈ NestFinder</div>
+    <h2>Welcome Back</h2>
+    <p class="modal-sub">Sign in to access saved properties, alerts & more.</p>
+    <div class="form-group">
+      <label>Email / Phone</label>
+      <input type="text" placeholder="you@example.com" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" placeholder="••••••••" />
+    </div>
+    <button class="btn-primary full-width">Sign In</button>
+    <div class="login-divider">or continue with</div>
+    <div class="social-btns">
+      <button class="social-btn">🔵 Google</button>
+      <button class="social-btn">📘 Facebook</button>
+    </div>
+    <p class="login-footer">Don't have an account? <a href="#">Register Free</a></p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo"><span class="logo-icon">◈</span><span class="logo-text">NestFinder</span></div>
+      <p>India's most trusted platform for buying, selling, and renting properties. Powered by AI.</p>
+      <div class="social-links">
+        <a href="#">Twitter</a><a href="#">Instagram</a><a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Properties</h4>
+      <a href="#">Flats for Sale</a><a href="#">Villas</a><a href="#">Plots</a><a href="#">Commercial</a>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <a href="#">EMI Calculator</a><a href="#">ROI Estimator</a><a href="#">Price Trends</a><a href="#">Vastu Guide</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Abhi Gunjal. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
